@@ -1,5 +1,7 @@
 package com.fileinnout.domain.user;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import javax.sql.DataSource;
 import java.sql.*;
 
@@ -10,7 +12,7 @@ public class UserRepository {
         this.ds = ds;
     }
 
-    public UserDto.SignupRes register(UserDto.SignupReq signupRequest) {
+    public UserDto.SignupRes register(UserDto.SignupReq signupRequest, String hashedPassword) {
 
         try {
             Connection conn = ds.getConnection();
@@ -19,7 +21,7 @@ public class UserRepository {
 
             pstmt.setString(1, signupRequest.name());
             pstmt.setString(2, signupRequest.email());
-            pstmt.setString(3, signupRequest.password());
+            pstmt.setString(3, hashedPassword);
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -60,12 +62,14 @@ public class UserRepository {
                     // DB에서 가져온 비밀번호와 사용자가 입력한 비밀번호 비교
                     String dbPassword = rs.getString("password");
 
-                    if (dbPassword.equals(loginReq.password())) {
+                    BCrypt.Result result = BCrypt.verifyer().verify(loginReq.password().toCharArray(), dbPassword);
+                    if (result.verified) {
                         // 로그인 성공: 정보 반환
                         return new UserDto.LoginRes(
                                 rs.getLong("idx"),
                                 rs.getString("email"),
-                                rs.getString("name")
+                                rs.getString("name"),
+                                null
                         );
                     } else {
                         // 비밀번호 불일치
