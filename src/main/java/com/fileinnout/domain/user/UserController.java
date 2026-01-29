@@ -16,11 +16,15 @@ public class UserController implements Controller {
     @Override
     public BaseResponse process(HttpServletRequest req, HttpServletResponse resp) {
 
-
-        UserDto.SignupReq signupRequest = JsonParser.from(req, UserDto.SignupReq.class);
-
-        UserDto.SignupRes request = userService.register(signupRequest);
-
-        return BaseResponse.success(request);
+        if(req.getRequestURI().contains("signup")) {
+            UserDto.SignupReq signupReq = JsonParser.from(req, UserDto.SignupReq.class);
+            UserDto.SignupRes request = userService.register(signupReq);
+            return BaseResponse.success(request);
+        } else if (req.getRequestURI().contains("login")) {
+            UserDto.LoginReq loginReq = JsonParser.from(req, UserDto.LoginReq.class);
+            UserDto.LoginRes res = userService.login(loginReq);
+            return BaseResponse.success(res);
+        }
+        return null;
     }
 }

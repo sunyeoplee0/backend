@@ -11,4 +11,9 @@ public class UserService {
         UserDto.SignupRes request = userRepository.register(signupRequest);
         return request;
     }
+
+    public UserDto.LoginRes login(UserDto.LoginReq loginReq) {
+        UserDto.LoginRes res = userRepository.login(loginReq);
+        return res;
+    }
 }

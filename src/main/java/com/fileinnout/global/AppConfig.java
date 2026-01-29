@@ -20,6 +20,7 @@ public class AppConfig {
         ds.setUsername("lee");
         ds.setPassword("qwer1234");
         controllerMap.put("/user/signup", userController);
+        controllerMap.put("/user/login", userController);
     }
 
     public Controller getController(String uri) {

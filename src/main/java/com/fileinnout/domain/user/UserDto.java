@@ -16,16 +16,16 @@ public class UserDto {
     ) {}
 
     // 로그인 요청 DTO
-    public record LoginRequest(
+    public record LoginReq(
             String email,
             String password
     ) {}
 
     // 2. 로그인 응답: 서비스 이용을 위한 티켓(Token)을 발급함
-    public record LoginResponse(
-            String accessToken,
-            String refreshToken,
-            UserInfo user // 아래의 내부 record 사용
+    public record LoginRes(
+            Long idx,
+            String email,
+            String name // 아래의 내부 record 사용
     ) {}
 
     // 로그인 응답에 포함될 간략한 유저 정보
