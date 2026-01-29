@@ -26,6 +26,7 @@ public class AppConfig {
         ds.setUsername("lee");
         ds.setPassword("qwer1234");
         controllerMap.put("/user/signup", userController);
+        controllerMap.put("/user/login", userController);
 
         controllerMap.put("/editor/create", editorController);
         controllerMap.put("/editor/view", editorController);
