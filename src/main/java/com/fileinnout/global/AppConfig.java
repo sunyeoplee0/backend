@@ -1,5 +1,8 @@
 package com.fileinnout.global;
 
+import com.fileinnout.domain.Editor.EditorController;
+import com.fileinnout.domain.Editor.EditorRepository;
+import com.fileinnout.domain.Editor.EditorService;
 import com.fileinnout.domain.user.UserController;
 import com.fileinnout.domain.user.UserRepository;
 import com.fileinnout.domain.user.UserService;
@@ -14,13 +17,21 @@ public class AppConfig {
     UserRepository userRepository = new UserRepository(ds);
     UserService userService = new UserService(userRepository);
     UserController userController = new UserController(userService);
+    EditorRepository editorRepository = new EditorRepository(ds);
+    EditorService editorService = new EditorService(editorRepository);
+    EditorController editorController = new EditorController(editorService);
     public AppConfig() {
         ds.setDriverClassName("org.mariadb.jdbc.Driver");
         ds.setJdbcUrl("jdbc:mariadb://192.168.92.100:3306/test");
         ds.setUsername("lee");
         ds.setPassword("qwer1234");
         controllerMap.put("/user/signup", userController);
-        controllerMap.put("/user/login", userController);
+
+        controllerMap.put("/editor/create", editorController);
+        controllerMap.put("/editor/view", editorController);
+        controllerMap.put("/editor/edit", editorController);
+        controllerMap.put("/editor/delete", editorController);
+        controllerMap.put("/editor/save", editorController);
     }
 
     public Controller getController(String uri) {
