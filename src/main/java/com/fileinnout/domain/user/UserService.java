@@ -7,8 +7,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDto.SignupResponse register(UserDto.SignupRequest signupRequest) {
-        UserDto.SignupResponse request = userRepository.register(signupRequest);
+    public UserDto.SignupRes register(UserDto.SignupReq signupRequest) {
+        UserDto.SignupRes request = userRepository.register(signupRequest);
         return request;
     }
 }

@@ -2,14 +2,14 @@ package com.fileinnout.domain.user;
 
 public class UserDto {
 
-    public record SignupRequest(
+    public record SignupReq(
             String name,
             String email,
             String password
     ) {}
 
     // 1. 회원가입 응답: 유저가 정상적으로 생성되었음을 알림
-    public record SignupResponse(
+    public record SignupRes(
             Long idx,
             String email,
             String name

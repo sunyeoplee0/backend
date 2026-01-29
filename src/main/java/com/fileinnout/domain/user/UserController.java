@@ -17,9 +17,9 @@ public class UserController implements Controller {
     public BaseResponse process(HttpServletRequest req, HttpServletResponse resp) {
 
 
-        UserDto.SignupRequest signupRequest = JsonParser.from(req, UserDto.SignupRequest.class);
+        UserDto.SignupReq signupRequest = JsonParser.from(req, UserDto.SignupReq.class);
 
-        UserDto.SignupResponse request = userService.register(signupRequest);
+        UserDto.SignupRes request = userService.register(signupRequest);
 
         return BaseResponse.success(request);
     }

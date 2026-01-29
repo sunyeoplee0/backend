@@ -10,7 +10,7 @@ public class UserRepository {
         this.ds = ds;
     }
 
-    public UserDto.SignupResponse register(UserDto.SignupRequest signupRequest) {
+    public UserDto.SignupRes register(UserDto.SignupReq signupRequest) {
 
         try {
             Connection conn = ds.getConnection();
@@ -30,7 +30,7 @@ public class UserRepository {
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     long idx = rs.getLong(1);
-                    return new UserDto.SignupResponse(
+                    return new UserDto.SignupRes(
                             idx,
                             signupRequest.email(),
                             signupRequest.name());
