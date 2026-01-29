@@ -27,4 +27,8 @@ public class EditorService {
 
         return editorRepository.save(req);
     }
+    public EditorDto.PermissionDocRes PermissionRes(EditorDto.PermissionDocReq req) {
+
+        return editorRepository.permission(req);
+    }
 }

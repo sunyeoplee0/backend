@@ -1,8 +1,29 @@
 package com.fileinnout.domain.Editor;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Map;
+/*
+user 테이블
+CREATE TABLE user (
+    idx LONG PRIMARY_KEY AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL,
+    email VARCHAR(15),
+    password STRING VARCHAR(100)
+);
+CREATE TABLE posts (
+    post_idx LONG PRIMARY_KEY AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    contents TEXT,
+    doc_type VARCHAR(20),
+    `group` VARCHAR(20),
+    -- 날짜 관련 설정
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- 관계 설정 (선택 사항)
+    CONSTRAINT fk_user_posts FOREIGN KEY (id_idx) REFERENCES user(user_idx)
+);
+
+ */
+
+
 
 public class EditorDto {
 /*    private BigInteger id_idx;
@@ -83,10 +104,23 @@ public class EditorDto {
             String contents,
             String doc_type
     ){}
-    // 문서 저장 요청 idx랑 post_idx 필요, 문서 저장시 필요한 title, contents, type 필요
+    // 문서 저장 응답 idx랑 post_idx 필요, 문서 저장시 필요한 title, contents, type 필요
     public record SaveDocRes (
             Long id_idx,
             Long post_idx
+    ){}
+
+    // 문서 공유 요청 idx랑 post_idx 필요, 문서 저장시 필요한 title, contents, type 필요
+    public record PermissionDocReq (
+            Long id_idx,
+            Long post_idx,
+            String Permission
+    ){}
+    // 문서 저장 응답 idx랑 post_idx 필요, 문서 저장시 필요한 title, contents, type 필요
+    public record PermissionDocRes (
+            Long id_idx,
+            Long post_idx,
+            String Permission
     ){}
 }
 //class Permission {

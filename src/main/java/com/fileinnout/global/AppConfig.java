@@ -29,10 +29,11 @@ public class AppConfig {
         controllerMap.put("/user/login", userController);
 
         controllerMap.put("/editor/create", editorController);
-        controllerMap.put("/editor/view", editorController);
+        controllerMap.put("/view", editorController);
         controllerMap.put("/editor/edit", editorController);
         controllerMap.put("/editor/delete", editorController);
         controllerMap.put("/editor/save", editorController);
+        controllerMap.put("/editor/permission", editorController);
     }
 
     public Controller getController(String uri) {

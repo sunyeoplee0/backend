@@ -19,7 +19,7 @@ public class EditorRepository {
         try {
             Connection conn = ds.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(
-                    "INSERT INTO posts (id_idx, doc_type, group, permission) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO posts (id_idx, doc_type, group) VALUES (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
             pstmt.setLong(1, req.id_idx());
@@ -176,6 +176,40 @@ public class EditorRepository {
                     return new EditorDto.SaveDocRes(
                             req.id_idx(),
                             rs.getLong(1)
+                    );
+                }else {
+                    throw new SQLException("문제가 있는 칸이 있습니다.");
+                }
+            }catch (RuntimeException e) {
+                throw new RuntimeException("rs가 문제있습니다.");
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public EditorDto.PermissionDocRes permission(EditorDto.PermissionDocReq req) {
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "UPDATE posts p" +
+                            "JOIN user u ON p.id_idx = u.user_idx" +
+                            "SET p.permission = (?)" +
+                            "WHERE p.post_idx = (?) " +
+                            "  AND u.user_idx = (?)",
+                    Statement.RETURN_GENERATED_KEYS
+            );
+            pstmt.setLong(1, req.id_idx());
+            pstmt.setLong(2, req.post_idx());
+            pstmt.setString(3, req.Permission());
+            if(pstmt.executeUpdate() == 0) {
+                throw new SQLException("문서 업데이트 실패 : 권한설정이 안됐습니다.");
+            }
+            try (ResultSet rs = pstmt.getGeneratedKeys()){
+                if(rs.next()) {
+                    return new EditorDto.PermissionDocRes(
+                            req.id_idx(),
+                            rs.getLong(1),
+                            rs.getString(3)
                     );
                 }else {
                     throw new SQLException("문제가 있는 칸이 있습니다.");

@@ -38,6 +38,10 @@ public class EditorController implements Controller {
             SaveDocReq saveReq = JsonParser.from(req, SaveDocReq.class);
             return BaseResponse.success(editorService.SaveRes(saveReq));
 
+        } else if (req.getRequestURI().contains("permission")) {
+            PermissionDocReq permissionReq = JsonParser.from(req, PermissionDocReq.class);
+            return BaseResponse.success(editorService.PermissionRes(permissionReq));
+
         }
         return null;
     }
