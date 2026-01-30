@@ -27,8 +27,8 @@ public class AppConfig {
 
     public AppConfig() {
         ds.setDriverClassName("org.mariadb.jdbc.Driver");
-        ds.setJdbcUrl("jdbc:mariadb://192.168.92.100:3306/test");
-        ds.setUsername("lee");
+        ds.setJdbcUrl("jdbc:mariadb://192.100.201.20:3306/test");
+        ds.setUsername("root");
         ds.setPassword("qwer1234");
 
         controllerMap.put("/user/signup", userSignupController);
