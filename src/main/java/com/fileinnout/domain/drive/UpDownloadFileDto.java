@@ -1,4 +1,4 @@
-package com.fileinnout.domain.dirve;
+package com.fileinnout.domain.drive;
 
 public class UpDownloadFileDto {
 

@@ -3,6 +3,8 @@ package com.fileinnout.global;
 import com.fileinnout.domain.Editor.EditorController;
 import com.fileinnout.domain.Editor.EditorRepository;
 import com.fileinnout.domain.Editor.EditorService;
+
+import com.fileinnout.domain.drive.*;
 import com.fileinnout.domain.user.controller.UserLoginController;
 import com.fileinnout.domain.user.controller.UserSignupController;
 import com.fileinnout.domain.user.UserRepository;
@@ -25,6 +27,13 @@ public class AppConfig {
     EditorService editorService = new EditorService(editorRepository);
     EditorController editorController = new EditorController(editorService);
 
+    //아직은 사용하지 않음
+    //FileRepository fileRepository = new FileRepositoryImpl(ds);
+    FileService fileService = new FilePreSignedServiceMinioImpl();
+    FileController fileController = new FileController(fileService);
+
+
+
     public AppConfig() {
         ds.setDriverClassName("org.mariadb.jdbc.Driver");
         ds.setJdbcUrl("jdbc:mariadb://192.100.201.20:3306/test");
@@ -40,6 +49,8 @@ public class AppConfig {
         controllerMap.put("/editor/delete", editorController);
         controllerMap.put("/editor/save", editorController);
         controllerMap.put("/editor/permission", editorController);
+
+        controllerMap.put("/file/upload", fileController);
 
     }
 

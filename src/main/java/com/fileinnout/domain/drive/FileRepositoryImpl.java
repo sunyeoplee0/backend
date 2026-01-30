@@ -1,6 +1,5 @@
-package com.fileinnout.domain.dirve;
+package com.fileinnout.domain.drive;
 
-import com.fileinnout.domain.dirve.UpDownloadFileDto;
 import jakarta.servlet.http.HttpServletRequest;
 
 import javax.sql.DataSource;

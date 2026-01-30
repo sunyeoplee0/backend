@@ -1,4 +1,4 @@
-package com.fileinnout.domain.dirve;
+package com.fileinnout.domain.drive;
 
 import com.fileinnout.global.BaseResponse;
 import com.fileinnout.global.Controller;
