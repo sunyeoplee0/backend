@@ -1,5 +1,6 @@
 package com.fileinnout.utils;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -24,5 +25,15 @@ public class JwtProvider {
                 .expiration(expiryDate)
                 .signWith(KEY)
                 .compact();
+    }
+
+    public static Long checkToken(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(KEY)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.get("idx", Long.class);
     }
 }

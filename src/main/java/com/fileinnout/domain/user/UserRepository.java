@@ -68,8 +68,7 @@ public class UserRepository {
                         return new UserDto.LoginRes(
                                 rs.getLong("idx"),
                                 rs.getString("email"),
-                                rs.getString("name"),
-                                null
+                                rs.getString("name")
                         );
                     } else {
                         // 비밀번호 불일치

@@ -16,9 +16,9 @@ dependencies {
     implementation "org.mariadb.jdbc:mariadb-java-client:3.1.4"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.20.0"
     implementation 'at.favre.lib:bcrypt:0.10.2'
-    implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-orgjson:0.12.6'
 }
 
 test {
