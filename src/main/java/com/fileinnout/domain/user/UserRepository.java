@@ -16,7 +16,7 @@ public class UserRepository {
 
         try {
             Connection conn = ds.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user (name, email, password) VALUES (?, ?, ?)",
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user (name, email, password ) VALUES (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, signupRequest.name());

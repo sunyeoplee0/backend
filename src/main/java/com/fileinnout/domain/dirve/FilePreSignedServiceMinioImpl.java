@@ -20,12 +20,12 @@ public class FilePreSignedServiceMinioImpl implements FileService {
     private final AwsCredentials credentials =
             AwsBasicCredentials.create("minioadmin", "minioadmin");
     private final S3Presigner s3Presigner = S3Presigner.builder()
-                    .region(Region.US_EAST_1) // MinIO는 보통 이걸 사용
+                    .region(Region.US_EAST_1)
                     .credentialsProvider(StaticCredentialsProvider.create(credentials))
                     .endpointOverride(URI.create("http://192.100.201.30:9000"))
                     .serviceConfiguration(
                             S3Configuration.builder()
-                                    .pathStyleAccessEnabled(true) // ⭐ 필수
+                                    .pathStyleAccessEnabled(true)
                                     .build()
                     )
                     .build();
@@ -39,14 +39,12 @@ public class FilePreSignedServiceMinioImpl implements FileService {
             throw new IllegalArgumentException("filename is required");
         }
 
-        // ✅ 업로드 대상 정보
         PutObjectRequest putObjectRequest =
                 PutObjectRequest.builder()
                         .bucket("file-storage") // 미리 생성된 버킷
                         .key(filename)
                         .build();
 
-        // ✅ presigned URL 생성
         PutObjectPresignRequest presignRequest =
                 PutObjectPresignRequest.builder()
                         .signatureDuration(Duration.ofMinutes(5)) // 5분 유효
