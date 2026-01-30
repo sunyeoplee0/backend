@@ -1,9 +1,11 @@
 package com.fileinnout.global;
 
 import com.fileinnout.utils.JsonParser;
+import com.fileinnout.utils.JwtProvider;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,8 +31,26 @@ public class DispatcherServlet extends HttpServlet {
             return;
         }
 
-        BaseResponse res = controller.process(req, resp);
+        BaseResponse res = null;
+        if (req.getRequestURI().contains("editor")){
+            if (req.getCookies() != null) {
+                for (Cookie cookie : req.getCookies()) {
+                    if (cookie.getName().equals("ATOKEN")) {
+                        System.out.println("토큰 있다.");
+                        String token = cookie.getValue();
+                        JwtProvider.checkToken(token);
+                        res = controller.process(req, resp);
+                    }
+                }
+            }
+        } else {
+            res = controller.process(req, resp);
+        }
+
         resp.getWriter().write(JsonParser.from(res));
+
+
+
 
     }
 }

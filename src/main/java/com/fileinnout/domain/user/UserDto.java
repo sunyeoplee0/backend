@@ -25,8 +25,7 @@ public class UserDto {
     public record LoginRes(
             Long idx,
             String email,
-            String name, // 아래의 내부 record 사용
-            String token
+            String name // 아래의 내부 record 사용
     ) {}
 
     // 로그인 응답에 포함될 간략한 유저 정보

@@ -18,12 +18,9 @@ public class UserService {
 
     public UserDto.LoginRes login(UserDto.LoginReq loginReq) {
         UserDto.LoginRes res = userRepository.login(loginReq);
-        String token = JwtProvider.createToken(res.idx(), res.name());
-        return new UserDto.LoginRes(
-                res.idx(),
-                res.email(),
-                res.name(),
-                token
-        );
+        return res;
+
     }
+
+
 }
