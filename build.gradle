@@ -11,14 +11,30 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.zaxxer:HikariCP:7.0.2'
+
+    // HikariCP (Connection Pool)
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    // Servlet API (provided by Tomcat)
     compileOnly "jakarta.servlet:jakarta.servlet-api:6.0.0"
-    implementation "org.mariadb.jdbc:mariadb-java-client:3.1.4"
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.20.0"
+    // MariaDB JDBC Driver
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.2'
+    // Jackson (JSON 처리)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
     implementation 'at.favre.lib:bcrypt:0.10.2'
+    // JWT 파일
     implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
+    // AWS SDK for Java v2 - S3 (MinIO 호환)
+    implementation platform('software.amazon.awssdk:bom:2.21.0')
+    implementation 'software.amazon.awssdk:s3'
+    implementation 'software.amazon.awssdk:s3-transfer-manager'
+    // SLF4J (로깅)
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
+    // JUnit (테스트)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
