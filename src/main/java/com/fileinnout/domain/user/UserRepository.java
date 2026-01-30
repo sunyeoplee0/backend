@@ -48,7 +48,7 @@ public class UserRepository {
     }
 
     public UserDto.LoginRes login(UserDto.LoginReq loginReq) {
-        String sql = "SELECT idx, email, password, name FROM user WHERE email = ?";
+        String sql = "SELECT user_idx, email, password, name FROM user WHERE email = ?";
 
         try (Connection conn = ds.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -66,7 +66,7 @@ public class UserRepository {
                     if (result.verified) {
                         // 로그인 성공: 정보 반환
                         return new UserDto.LoginRes(
-                                rs.getLong("idx"),
+                                rs.getLong("user_idx"),
                                 rs.getString("email"),
                                 rs.getString("name")
                         );
