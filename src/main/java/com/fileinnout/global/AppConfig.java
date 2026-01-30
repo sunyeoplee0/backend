@@ -15,18 +15,22 @@ import java.util.Map;
 public class AppConfig {
     HikariDataSource ds = new HikariDataSource();
     private static final Map<String, Controller> controllerMap = new HashMap<>();
+
     UserRepository userRepository = new UserRepository(ds);
     UserService userService = new UserService(userRepository);
     UserSignupController userSignupController = new UserSignupController(userService);
     UserLoginController userLoginController = new UserLoginController(userService);
+
     EditorRepository editorRepository = new EditorRepository(ds);
     EditorService editorService = new EditorService(editorRepository);
     EditorController editorController = new EditorController(editorService);
+
     public AppConfig() {
         ds.setDriverClassName("org.mariadb.jdbc.Driver");
         ds.setJdbcUrl("jdbc:mariadb://192.168.92.100:3306/test");
         ds.setUsername("lee");
         ds.setPassword("qwer1234");
+
         controllerMap.put("/user/signup", userSignupController);
         controllerMap.put("/user/login", userLoginController);
 
@@ -36,6 +40,7 @@ public class AppConfig {
         controllerMap.put("/editor/delete", editorController);
         controllerMap.put("/editor/save", editorController);
         controllerMap.put("/editor/permission", editorController);
+
     }
 
     public Controller getController(String uri) {
