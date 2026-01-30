@@ -1,15 +1,15 @@
 package com.fileinnout.domain.dirve;
 
-import com.be24.api.board.model.BoardDto;
+import com.fileinnout.domain.dirve.UpDownloadFileDto;
 import jakarta.servlet.http.HttpServletRequest;
 
 import javax.sql.DataSource;
 import java.sql.*;
 
-public class ImageRepositoryImpl implements ImageRepository {
+public class FileRepositoryImpl implements FileRepository {
     private final DataSource ds;
 
-    public ImageRepositoryImpl(DataSource dataSource) {
+    public FileRepositoryImpl(DataSource dataSource) {
         this.ds = dataSource;
     }
 

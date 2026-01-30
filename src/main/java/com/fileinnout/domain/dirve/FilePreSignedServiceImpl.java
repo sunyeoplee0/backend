@@ -14,7 +14,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import java.io.IOException;
 import java.time.Duration;
 
-public class ImagePreSignedServiceImpl implements ImageService{
+public class FilePreSignedServiceImpl implements FileService {
     private final AwsCredentials credentials = AwsBasicCredentials.create(
         System.getenv("AWS_ACCESS_KEY"), System.getenv("AWS_SECRET_KEY")
     );

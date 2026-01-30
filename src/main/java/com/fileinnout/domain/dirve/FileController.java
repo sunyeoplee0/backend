@@ -1,19 +1,19 @@
 package com.fileinnout.domain.dirve;
 
-import com.be24.api.common.BaseResponse;
-import com.be24.api.common.Controller;
+import com.fileinnout.global.BaseResponse;
+import com.fileinnout.global.Controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class ImageController  implements Controller {
+public class FileController implements Controller {
     // 서비스 클래스의 객체를 의존성 주입
-    private final ImageService imageService;
+    private final FileService fileService;
 
-    public ImageController(ImageService imageService) {
-        this.imageService = imageService;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ImageController  implements Controller {
         System.out.println("ImageController 실행");
         try {
             //service를 통해 주소가 반환됨
-            String result = imageService.upload(req);
+            String result = fileService.upload(req);
             return BaseResponse.success(result);
         } catch (IOException e) {
             throw new RuntimeException(e);

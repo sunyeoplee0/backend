@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.Duration;
 
-public class ImagePreSignedServiceMinioImpl implements ImageService {
+public class FilePreSignedServiceMinioImpl implements FileService {
     private final AwsCredentials credentials =
             AwsBasicCredentials.create("minioadmin", "minioadmin");
     private final S3Presigner s3Presigner = S3Presigner.builder()

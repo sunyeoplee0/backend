@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
 
-public class ImageCloudServiceImpl implements ImageService {
+public class FileCloudServiceImpl implements FileService {
     private final AwsCredentials credentials = AwsBasicCredentials.create(
             System.getenv("AWS_ACCESS_KEY"), System.getenv("AWS_SECRET_KEY")
     );
