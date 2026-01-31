@@ -15,7 +15,8 @@ public class ChatRoomDto {
             LocalDateTime createdAt         // 채팅방 생성시간
     ) {}
 
-    public record ChatRoomListReq(      //채팅방 목록 조회 요청
+    public record ChatRoomListReq(
+            Long userIdx,//채팅방 목록 조회 요청
             int page,
             int size
     ) {}

@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     implementation 'com.zaxxer:HikariCP:7.0.2'
     compileOnly "jakarta.servlet:jakarta.servlet-api:6.0.0"
     implementation "org.mariadb.jdbc:mariadb-java-client:3.1.4"

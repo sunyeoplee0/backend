@@ -20,13 +20,18 @@ public class ChatService {
         return res;
     }
 
-    public List<ChatRoomDto.ChatRoomListRes> ReadList(Long userId){
-       List<ChatRoomDto.ChatRoomListRes> res = chatRoomRepository.read(userId);
+    public List<ChatRoomDto.ChatRoomListRes> ReadList(Long userIdx){
+       List<ChatRoomDto.ChatRoomListRes> res = chatRoomRepository.read(userIdx);
        return res;
     }
 
     public ChatMessageDto.ChatMessageSendRes Send(ChatMessageDto.ChatMessageSendReq req){
         ChatMessageDto.ChatMessageSendRes res = chatMessageRepository.send(req);
+        return res;
+    }
+
+    public List<ChatMessageDto.ChatMessageListRes> Read(Long roomId){
+        List<ChatMessageDto.ChatMessageListRes> res = chatMessageRepository.read(roomId);
         return res;
     }
 }

@@ -8,13 +8,16 @@ public class ChatMessageDto {                   //채팅 메세지 전송 요청
     public record ChatMessageSendReq(
             Long roomId,
             String content,
-            MessageType type
+            MessageType type,
+            Long senderId,
+            String senderNickname
     ) {}
 
     public record ChatMessageSendRes(      //채팅 메세지 전송 응답 DTO
             Long messageId,
             String senderNickname,
             String content,
+            Long senderId,
             LocalDateTime createdAt
     ) {}
 

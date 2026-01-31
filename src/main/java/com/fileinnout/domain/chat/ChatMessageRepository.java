@@ -16,18 +16,17 @@ public class ChatMessageRepository {
         this.ds = ds;
     }
 
-    public ChatMessageDto.ChatMessageSendRes send(ChatMessageDto.ChatMessageSendReq req, Long senderId, String senderNickname) {
-        String sql = "INSERT INTO chatmessage (roomID, senderID, content, type, createdAt) VALUES (?, ?, ?, ?, NOW())";
+    public ChatMessageDto.ChatMessageSendRes send(ChatMessageDto.ChatMessageSendReq req) {
 
         try (Connection conn = ds.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(
-                     "INSERT INTO chatmessage (roomID, senderID, content, type, createdAt) VALUES (?, ?, ?, ?, NOW())",
+                     "INSERT INTO chatmessage (roomId, senderId, content, type, createdAt) VALUES (?, ?, ?, ?, NOW())",
                      Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setLong(1, req.roomId());
-            pstmt.setLong(2, senderId);
+            pstmt.setLong(2, req.senderId());
             pstmt.setString(3, req.content());
-            pstmt.setString(4, String.valueOf(req.type()));
+            pstmt.setString(4, req.type().name());
 
             int affectedRows = pstmt.executeUpdate(); // 💡 executeUpdate() 호출 필수!
 
@@ -42,8 +41,9 @@ public class ChatMessageRepository {
 
                     return new ChatMessageDto.ChatMessageSendRes(
                             messageId,
-                            senderNickname, // 💡 응답에는 보낸 사람의 닉네임이 들어가야 합니다.
+                            req.senderNickname(),
                             req.content(),
+                            req.senderId(),
                             now
                     );
                 } else {
@@ -57,10 +57,10 @@ public class ChatMessageRepository {
 
     public List<ChatMessageDto.ChatMessageListRes> read(Long roomId){
         List<ChatMessageDto.ChatMessageListRes> messages = new ArrayList<>();
-        String sql = "SELECT m.messageID, m.senderID, u.name as senderNickname, m.content, m.createdAt, m.type " +
+        String sql = "SELECT m.messageId, m.senderId, u.name as senderNickname, m.content, m.createdAt, m.type " +
                 "FROM chatmessage m " +
-                "JOIN user u ON m.senderID = u.idx " + // UserRepository 구조에 맞춤 (idx)
-                "WHERE m.roomID = ? " +
+                "JOIN user u ON m.senderId = u.idx " + // UserRepository 구조에 맞춤 (idx)
+                "WHERE m.roomId = ? " +
                 "ORDER BY m.createdAt ASC"; // 대화창이므로 과거순(오래된 순) 정렬
 
         try (Connection conn = ds.getConnection();
@@ -76,8 +76,8 @@ public class ChatMessageRepository {
                     String typeStr = rs.getString("type");
                     MessageType typeEnum = MessageType.valueOf(typeStr);
                     messages.add(new ChatMessageDto.ChatMessageListRes(
-                            rs.getLong("messageID"),
-                            rs.getLong("senderID"),
+                            rs.getLong("messageId"),
+                            rs.getLong("senderId"),
                             rs.getString("senderNickname"),
                             rs.getString("content"),
                             createdAt,
